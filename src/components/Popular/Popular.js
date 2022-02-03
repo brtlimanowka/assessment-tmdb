@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import env from 'react-dotenv';
 import Spinner from '../ui/Spinner';
+import { API_URL, API_KEY } from '../../utils/properties';
 
 const Popular = () => {
   const [isLoading, setIsLoading] = useState(false);
@@ -9,7 +9,7 @@ const Popular = () => {
 
   useEffect(() => {
     setIsLoading(true);
-    fetch(`${env.API_URL}movie/popular?api_key=${env.API_KEY}`)
+    fetch(`${API_URL}movie/popular?api_key=${API_KEY}`)
       .then((response) => {
         if (response.ok) {
           return response.json();
