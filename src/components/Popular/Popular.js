@@ -9,7 +9,7 @@ const Popular = () => {
 
   useEffect(() => {
     setIsLoading(true);
-    fetch(`${API_URL}movie/popular?api_key=${API_KEY}`)
+    fetch(`${API_URL}/movie/popular?api_key=${API_KEY}`)
       .then((response) => {
         if (response.ok) {
           return response.json();
