@@ -12,7 +12,7 @@ const Container = styled.div`
     font-size: 62px;
     &:hover {
       cursor: pointer;
-      color: ${({ theme }) => theme.colors.primaryBackground};
+      color: ${({ theme }) => theme.colors.highlight};
     }
   }
   div.container__logo i {
