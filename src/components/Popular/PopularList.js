@@ -1,5 +1,6 @@
 import React from 'react';
 import PopularItem from './PopularItem';
+import PopularPages from './PopularPages';
 import styled from 'styled-components';
 
 const Container = styled.div`
@@ -10,18 +11,29 @@ const Container = styled.div`
     font-size: 400%;
     font-weight: bold;
   }
+  div.container__items {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-evenly;
+    width: 1688px;
+  }
 `;
 
-const PopularList = ({ data, genres }) => {
+const PopularList = ({ data, genres, onCurrentPageChanged }) => {
   return (
     <Container>
       <h1>Wszystkie filmy</h1>
       <div className='container__items'>
-        <PopularItem data={data[0]} genres={genres} />
-        {/* {data.map((movie) => {
-          return <PopularItem key={movie.id} data={movie} />;
-        })} */}
+        {data.results.map((movie) => {
+          return <PopularItem key={movie.id} data={movie} genres={genres} />;
+        })}
       </div>
+      <PopularPages
+        currentPage={data.page}
+        lastPage={500}
+        onCurrentPageChanged={onCurrentPageChanged}
+      />
     </Container>
   );
 };

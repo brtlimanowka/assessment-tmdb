@@ -1,5 +1,5 @@
 import React from 'react';
-import { Link, NavLink } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 
 const Container = styled.div`
@@ -12,7 +12,7 @@ const Container = styled.div`
     font-size: 62px;
     &:hover {
       cursor: pointer;
-      color: ${({ theme }) => theme.colors.primaryBackground};
+      color: ${({ theme }) => theme.colors.highlight};
     }
   }
   div.container__logo i {
