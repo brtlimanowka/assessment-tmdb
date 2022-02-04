@@ -8,7 +8,9 @@ const Popular = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(null);
   const [popularMovies, setPopularMovies] = useState(null);
-  const [currentPage, setCurrentPage] = useState(1);
+  const [currentPage, setCurrentPage] = useState(
+    localStorage.getItem('currentPage') || 1
+  );
   const [genreList, setGenreList] = useState(null);
 
   useEffect(() => {
@@ -47,6 +49,7 @@ const Popular = () => {
 
   const currentPageChangedHandler = (newPage) => {
     setCurrentPage(newPage);
+    localStorage.setItem('currentPage', newPage);
   };
 
   return (
