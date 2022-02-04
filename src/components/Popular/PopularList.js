@@ -1,5 +1,6 @@
 import React from 'react';
 import PopularItem from './PopularItem';
+import PopularPages from './PopularPages';
 import styled from 'styled-components';
 
 const Container = styled.div`
@@ -24,10 +25,11 @@ const PopularList = ({ data, genres }) => {
     <Container>
       <h1>Wszystkie filmy</h1>
       <div className='container__items'>
-        {data.map((movie) => {
+        {data.results.map((movie) => {
           return <PopularItem key={movie.id} data={movie} genres={genres} />;
         })}
       </div>
+      <PopularPages currentPage={data.page} lastPage={data.total_pages} />
     </Container>
   );
 };

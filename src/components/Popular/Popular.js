@@ -19,7 +19,7 @@ const Popular = () => {
         } else throw new Error(response.statusText);
       })
       .then((data) => {
-        setPopularMovies(data.results);
+        setPopularMovies(data);
       })
       .catch((error) => {
         setError(error.message);
