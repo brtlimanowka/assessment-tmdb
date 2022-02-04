@@ -1,12 +1,9 @@
-import Theme from './utils/Theme';
+import { BrowserRouter, Switch, Route, Redirect } from 'react-router-dom';
+import Popular from './components/Popular/Popular';
 import './App.css';
 
 function App() {
-  return (
-    <Theme>
-      <div className='App'></div>;
-    </Theme>
-  );
+  return <div className='App'></div>;
 }
 
 export default App;
