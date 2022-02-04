@@ -8,24 +8,27 @@ const Popular = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(null);
   const [popularMovies, setPopularMovies] = useState(null);
+  const [currentPage, setCurrentPage] = useState(
+    localStorage.getItem('currentPage') || 1
+  );
   const [genreList, setGenreList] = useState(null);
 
   useEffect(() => {
     setIsLoading(true);
-    fetch(`${API_URL}/movie/popular?api_key=${API_KEY}`)
+    fetch(`${API_URL}/movie/popular?api_key=${API_KEY}&page=${currentPage}`)
       .then((response) => {
         if (response.ok) {
           return response.json();
         } else throw new Error(response.statusText);
       })
       .then((data) => {
-        setPopularMovies(data.results);
+        setPopularMovies(data);
       })
       .catch((error) => {
         setError(error.message);
       })
       .finally(() => setIsLoading(false));
-  }, []);
+  }, [currentPage]);
 
   useEffect(() => {
     setIsLoading(true);
@@ -44,12 +47,21 @@ const Popular = () => {
       .finally(() => setIsLoading(false));
   }, []);
 
+  const currentPageChangedHandler = (newPage) => {
+    setCurrentPage(newPage);
+    localStorage.setItem('currentPage', newPage);
+  };
+
   return (
     <div>
       {isLoading && <Spinner />}
       {!isLoading && !!error && <ErrorMessage errorMessage={error} />}
       {!isLoading && !error && !!popularMovies && !!genreList && (
-        <PopularList data={popularMovies} genres={genreList} />
+        <PopularList
+          data={popularMovies}
+          genres={genreList}
+          onCurrentPageChanged={currentPageChangedHandler}
+        />
       )}
     </div>
   );

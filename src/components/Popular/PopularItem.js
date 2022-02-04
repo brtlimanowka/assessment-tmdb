@@ -7,9 +7,14 @@ const IMAGE_URL = `${WEB_URL}/t/p/w300_and_h450_bestv2/`;
 const Card = styled.div`
   height: 664px;
   width: 399px;
+  margin-bottom: 20px;
   box-shadow: ${({ theme }) => theme.shadow};
   display: flex;
   flex-direction: column;
+  &:hover {
+    cursor: pointer;
+    background-color: ${({ theme }) => theme.colors.secondaryBackground};
+  }
   div.card__poster {
     margin: 30px auto;
     height: 426px;
@@ -37,6 +42,16 @@ const Card = styled.div`
         }
       }
     }
+    div.card__rating {
+      span.card__average {
+        margin-right: 9px;
+        font-size: 160%;
+      }
+      span.card__total-votes {
+        font-size: 160%;
+        color: ${({ theme }) => theme.colors.secondaryFont};
+      }
+    }
   }
 `;
 
@@ -56,11 +71,15 @@ const PopularItem = ({ data, genres }) => {
       <div className='card__details'>
         <h2>{title}</h2>
         <div className='card__genres'>
-          {genresList.map((genre) => (
-            <div className='card__genre'>
+          {genresList.slice(0, 3).map((genre) => (
+            <div key={genre} className='card__genre'>
               <span>{genre}</span>
             </div>
           ))}
+        </div>
+        <div className='card__rating'>
+          <span className='card__average'>{data.vote_average}</span>
+          <span className='card__total-votes'>({data.vote_count} głosów)</span>
         </div>
       </div>
     </Card>
