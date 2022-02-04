@@ -8,11 +8,12 @@ const Popular = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(null);
   const [popularMovies, setPopularMovies] = useState(null);
+  const [currentPage, setCurrentPage] = useState(1);
   const [genreList, setGenreList] = useState(null);
 
   useEffect(() => {
     setIsLoading(true);
-    fetch(`${API_URL}/movie/popular?api_key=${API_KEY}`)
+    fetch(`${API_URL}/movie/popular?api_key=${API_KEY}&page=${currentPage}`)
       .then((response) => {
         if (response.ok) {
           return response.json();
@@ -25,7 +26,7 @@ const Popular = () => {
         setError(error.message);
       })
       .finally(() => setIsLoading(false));
-  }, []);
+  }, [currentPage]);
 
   useEffect(() => {
     setIsLoading(true);
@@ -44,12 +45,20 @@ const Popular = () => {
       .finally(() => setIsLoading(false));
   }, []);
 
+  const currentPageChangedHandler = (newPage) => {
+    setCurrentPage(newPage);
+  };
+
   return (
     <div>
       {isLoading && <Spinner />}
       {!isLoading && !!error && <ErrorMessage errorMessage={error} />}
       {!isLoading && !error && !!popularMovies && !!genreList && (
-        <PopularList data={popularMovies} genres={genreList} />
+        <PopularList
+          data={popularMovies}
+          genres={genreList}
+          onCurrentPageChanged={currentPageChangedHandler}
+        />
       )}
     </div>
   );

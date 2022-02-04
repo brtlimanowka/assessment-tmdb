@@ -53,23 +53,28 @@ const Pagination = styled.div`
   }
 `;
 
-const PopularPages = ({ currentPage, lastPage }) => {
+const PopularPages = ({ currentPage, lastPage, onCurrentPageChanged }) => {
+  const firstClickedHandler = () => onCurrentPageChanged(1);
+  const previousClickedHandler = () => onCurrentPageChanged(currentPage - 1);
+  const nextClickedHandler = () => onCurrentPageChanged(currentPage + 1);
+  const lastClickedHandler = () => onCurrentPageChanged(lastPage);
+
   return (
     <Pagination>
-      <button disabled={currentPage === 1}>
+      <button disabled={currentPage === 1} onClick={firstClickedHandler}>
         <i className='fas fa-chevron-left'></i> <span>Pierwsza</span>
       </button>
-      <button disabled={currentPage === 1}>
+      <button disabled={currentPage === 1} onClick={previousClickedHandler}>
         <i className='fas fa-chevron-left'></i> <span>Poprzednia</span>
       </button>
       <div className='pagination__status'>
         Strona <strong>{currentPage}</strong> z <strong>{lastPage}</strong>
       </div>
-      <button disabled={currentPage === lastPage}>
+      <button disabled={currentPage === lastPage} onClick={nextClickedHandler}>
         <span>Następna</span>
         <i className='fas fa-chevron-right'></i>
       </button>
-      <button disabled={currentPage === lastPage}>
+      <button disabled={currentPage === lastPage} onClick={lastClickedHandler}>
         <span>Ostatnia</span>
         <i className='fas fa-chevron-right'></i>
       </button>

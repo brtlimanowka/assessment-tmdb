@@ -20,7 +20,7 @@ const Container = styled.div`
   }
 `;
 
-const PopularList = ({ data, genres }) => {
+const PopularList = ({ data, genres, onCurrentPageChanged }) => {
   return (
     <Container>
       <h1>Wszystkie filmy</h1>
@@ -29,7 +29,11 @@ const PopularList = ({ data, genres }) => {
           return <PopularItem key={movie.id} data={movie} genres={genres} />;
         })}
       </div>
-      <PopularPages currentPage={data.page} lastPage={data.total_pages} />
+      <PopularPages
+        currentPage={data.page}
+        lastPage={500}
+        onCurrentPageChanged={onCurrentPageChanged}
+      />
     </Container>
   );
 };
