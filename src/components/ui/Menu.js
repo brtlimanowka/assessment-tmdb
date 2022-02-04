@@ -25,8 +25,11 @@ const Container = styled.div`
   div.container__lists {
     display: flex;
     justify-content: space-between;
-    width: 150px;
+    width: 110px;
     margin-right: 116px;
+    i {
+      font-size: 36px;
+    }
   }
 `;
 
