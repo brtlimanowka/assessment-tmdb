@@ -2,7 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import { WEB_URL } from '../../utils/properties';
 
-const IMAGE_URL = `${WEB_URL}t/p/w300_and_h450_bestv2/`;
+const IMAGE_URL = `${WEB_URL}/t/p/w300_and_h450_bestv2/`;
 
 const Card = styled.div`
   height: 664px;
@@ -24,10 +24,13 @@ const Card = styled.div`
   }
 `;
 
-const PopularItem = ({ data }) => {
+const PopularItem = ({ data, genres }) => {
   const backgroundURL = `url(${IMAGE_URL}/${data.poster_path})`;
   const title =
     data.title.length > 19 ? data.title.substring(0, 18) + '...' : data.title;
+  const genresList = data.genre_ids.map(
+    (id) => genres.genres.find((genre) => genre.id === id).name
+  );
 
   return (
     <Card>

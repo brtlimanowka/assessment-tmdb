@@ -12,13 +12,16 @@ const Container = styled.div`
   }
 `;
 
-const PopularList = ({ data }) => {
+const PopularList = ({ data, genres }) => {
   return (
     <Container>
       <h1>Wszystkie filmy</h1>
-      {data.map((movie) => {
-        return <PopularItem key={movie.id} data={movie} />;
-      })}
+      <div className='container__items'>
+        <PopularItem data={data[0]} genres={genres} />
+        {/* {data.map((movie) => {
+          return <PopularItem key={movie.id} data={movie} />;
+        })} */}
+      </div>
     </Container>
   );
 };
