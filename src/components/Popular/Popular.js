@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import Spinner from '../ui/Spinner';
 import ErrorMessage from '../ui/ErrorMessage';
+import PopularList from './PopularList';
 import { API_URL, API_KEY } from '../../utils/properties';
 
 const Popular = () => {
@@ -16,7 +17,7 @@ const Popular = () => {
         } else throw new Error(response.statusText);
       })
       .then((data) => {
-        setPopularMovies(data);
+        setPopularMovies(data.results);
       })
       .catch((error) => {
         setError(error.message);
@@ -28,6 +29,9 @@ const Popular = () => {
     <div>
       {isLoading && <Spinner />}
       {!isLoading && !!error && <ErrorMessage errorMessage={error} />}
+      {!isLoading && !error && !!popularMovies && (
+        <PopularList data={popularMovies} />
+      )}
     </div>
   );
 };
