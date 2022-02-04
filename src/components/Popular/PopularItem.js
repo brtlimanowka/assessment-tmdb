@@ -11,6 +11,10 @@ const Card = styled.div`
   box-shadow: ${({ theme }) => theme.shadow};
   display: flex;
   flex-direction: column;
+  &:hover {
+    cursor: pointer;
+    background-color: ${({ theme }) => theme.colors.secondaryBackground};
+  }
   div.card__poster {
     margin: 30px auto;
     height: 426px;
