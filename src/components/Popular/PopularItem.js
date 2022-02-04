@@ -21,6 +21,22 @@ const Card = styled.div`
     h2 {
       font-size: 32px;
     }
+    div.card__genres {
+      margin: 26px 0;
+      display: flex;
+      div.card__genre {
+        height: 28px;
+        padding: 4px 8px;
+        margin-right: 8px;
+        border-radius: 5px;
+        background-color: ${({ theme }) => theme.colors.secondaryBackground};
+        span {
+          margin: 0 8px;
+          font-size: 14px;
+          line-height: 28px;
+        }
+      }
+    }
   }
 `;
 
@@ -39,6 +55,13 @@ const PopularItem = ({ data, genres }) => {
         style={{ backgroundImage: backgroundURL }}></div>
       <div className='card__details'>
         <h2>{title}</h2>
+        <div className='card__genres'>
+          {genresList.map((genre) => (
+            <div className='card__genre'>
+              <span>{genre}</span>
+            </div>
+          ))}
+        </div>
       </div>
     </Card>
   );
