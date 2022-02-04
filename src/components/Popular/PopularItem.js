@@ -37,6 +37,16 @@ const Card = styled.div`
         }
       }
     }
+    div.card__rating {
+      span.card__average {
+        margin-right: 9px;
+        font-size: 160%;
+      }
+      span.card__total-votes {
+        font-size: 160%;
+        color: ${({ theme }) => theme.colors.secondaryFont};
+      }
+    }
   }
 `;
 
@@ -61,6 +71,10 @@ const PopularItem = ({ data, genres }) => {
               <span>{genre}</span>
             </div>
           ))}
+        </div>
+        <div className='card__rating'>
+          <span className='card__average'>{data.vote_average}</span>
+          <span className='card__total-votes'>({data.vote_count} głosów)</span>
         </div>
       </div>
     </Card>
