@@ -2,8 +2,9 @@ import React from 'react';
 import styled from 'styled-components';
 
 const Container = styled.div`
-  margin: auto 0;
+  margin: 20px 0;
   display: flex;
+  justify-content: center;
 `;
 const Dot = styled.div`
   background-color: ${(props) => props.theme.colors.secondaryButton};
