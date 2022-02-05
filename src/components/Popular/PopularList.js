@@ -4,11 +4,11 @@ import PopularPages from './PopularPages';
 import styled from 'styled-components';
 
 const Container = styled.div`
-  margin: 77px 117px;
+  margin: 16px;
   h1 {
     margin-left: 11px;
-    margin-bottom: 77px;
-    font-size: 400%;
+    margin-bottom: 16px;
+    font-size: 320%;
     font-weight: bold;
   }
   div.container__items {
@@ -16,7 +16,17 @@ const Container = styled.div`
     flex-wrap: wrap;
     align-items: center;
     justify-content: space-evenly;
-    width: 1688px;
+    width: 100%;
+  }
+  @media (min-width: 810px) {
+    margin: 77px 117px;
+    h1 {
+      margin-bottom: 77px;
+      font-size: 400%;
+    }
+    div.container__items {
+      width: 1688px;
+    }
   }
 `;
 
