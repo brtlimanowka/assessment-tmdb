@@ -15,3 +15,4 @@
 - UI nigdzie nie wskazuje funkcjonalności wyszukiwania, wiec jej nie implementowałem
 - Klucz API zazwyczaj przechowywany byłby na backendzie ze względów bezpieczeństwa; frontend zamiast bezpośrednio wywoływać API TMDB odwoływałby się do backendu w celu ukrycia klucza przed użytkownikiem
 - W związku z ilością kodu przeniósłbym style do osobnego folderu, ale nie miałem na to czasu
+- Cast & Crew przyciąłem do 5 pozycji

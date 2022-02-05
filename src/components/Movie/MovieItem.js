@@ -4,7 +4,7 @@ import Spinner from '../ui/Spinner';
 import ErrorMessage from '../ui/ErrorMessage';
 import { API_URL, API_KEY, WEB_URL } from '../../utils/properties';
 
-const IMAGE_URL = `${WEB_URL}/t/p/w300_and_h450_bestv2/`;
+const IMAGE_URL = `${WEB_URL}/t/p/w300_and_h450_bestv2`;
 const isDesktopView = window.innerWidth > 810;
 
 const Card = styled.div`
@@ -135,6 +135,9 @@ const Credits = styled.div`
     font-size: 240%;
     font-weight: 700;
   }
+  div.credits__cast {
+    display: flex;
+  }
   @media (min-width: 810px) {
     margin: -40px auto 80px auto;
     width: 1668px;
@@ -143,7 +146,41 @@ const Credits = styled.div`
     }
   }
 `;
-const Person = styled.div``;
+const Person = styled.div`
+  box-shadow: ${({ theme }) => theme.shadow};
+  margin-top: 40px;
+  margin-right: 16px;
+  width: 109px;
+  height: 183px;
+  div.credits__image {
+    margin: 8px;
+    height: 103px;
+    min-width: 93px;
+    border-radius: 8px;
+    background-size: cover;
+  }
+  div.credits__name {
+    text-align: center;
+    strong {
+      font-size: 240%;
+      display: block;
+    }
+    span {
+      font-size: 180%;
+      color: ${({ theme }) => theme.colors.detailsFont};
+    }
+  }
+  @media (min-width: 810px) {
+    width: 248px;
+    height: 339px;
+    div.credits__image {
+      margin: 10px 36px;
+      height: 264px;
+      width: 177px;
+      border-radius: 5px;
+    }
+  }
+`;
 
 const MovieItem = ({ data }) => {
   const [isLoading, setIsLoading] = useState(true);
@@ -159,8 +196,8 @@ const MovieItem = ({ data }) => {
         } else throw new Error(response.statusText);
       })
       .then((data) => {
-        setCast(data.cast);
-        setCrew(data.crew);
+        setCast(data.cast.slice(0, 5));
+        setCrew(data.crew.slice(0, 5));
       })
       .catch((error) => {
         setError(error.message);
@@ -169,7 +206,7 @@ const MovieItem = ({ data }) => {
     // eslint-disable-next-line
   }, []);
 
-  const backgroundURL = `url(${IMAGE_URL}/${data.poster_path})`;
+  const backgroundURL = `url(${IMAGE_URL}${data.poster_path})`;
   let genresList = data.genres;
   let title = data.title;
   let description = data.overview;
@@ -227,9 +264,43 @@ const MovieItem = ({ data }) => {
           </Card>
           <Credits>
             <h2> Wystąpili:</h2>
+            <div className='credits__cast'>
+              {cast.map((person) => {
+                return (
+                  <Person key={person.id}>
+                    <div
+                      className='credits__image'
+                      style={{
+                        backgroundImage: `url(${IMAGE_URL}${person.profile_path})`,
+                      }}></div>
+                    <div className='credits__name'>
+                      <strong>{person.name}</strong>
+                      <span>{person.character}</span>
+                    </div>
+                  </Person>
+                );
+              })}
+            </div>
           </Credits>
           <Credits>
             <h2>Ekipa:</h2>
+            <div className='credits__cast'>
+              {crew.map((person) => {
+                return (
+                  <Person key={person.id}>
+                    <div
+                      className='credits__image'
+                      style={{
+                        backgroundImage: `url(${IMAGE_URL}${person.profile_path})`,
+                      }}></div>
+                    <div className='credits__name'>
+                      <strong>{person.name}</strong>
+                      <span>{person.job}</span>
+                    </div>
+                  </Person>
+                );
+              })}
+            </div>
           </Credits>
         </Fragment>
       )}
