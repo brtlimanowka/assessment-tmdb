@@ -11,6 +11,7 @@ const theme = {
     secondaryButton: '#c3f4ff',
     pagination: '#7e839a',
     highlight: '#0085e5',
+    detailsFont: '#74788b',
   },
   shadow: '0 0 3px 3px rgba(185, 185, 185, 0.11)',
 };

@@ -3,32 +3,46 @@ import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 
 const Container = styled.div`
-  height: 125px;
+  height: 86px;
   background-color: ${({ theme }) => theme.colors.secondaryBackground};
   display: flex;
   align-items: center;
   justify-content: space-between;
   i {
-    font-size: 62px;
+    font-size: 36px;
     &:hover {
       cursor: pointer;
       color: ${({ theme }) => theme.colors.highlight};
     }
   }
   div.container__logo i {
-    position: absolute;
-    width: 68px;
-    height: 62px;
-    left: 116px;
-    top: 32px;
+    margin-left: 16px;
   }
   div.container__lists {
     display: flex;
     justify-content: space-between;
     width: 110px;
-    margin-right: 116px;
+    margin-right: 16px;
     i {
       font-size: 36px;
+    }
+  }
+  @media (min-width: 810px) {
+    height: 125px;
+    i {
+      font-size: 62px;
+    }
+    div.container__logo i {
+      position: absolute;
+      margin-left: 0;
+      width: 68px;
+      height: 62px;
+      left: 116px;
+      top: 32px;
+    }
+    div.container__lists {
+      width: 110px;
+      margin-right: 116px;
     }
   }
 `;
