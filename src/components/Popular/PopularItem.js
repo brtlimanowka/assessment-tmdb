@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import { WEB_URL } from '../../utils/properties';
 
 const IMAGE_URL = `${WEB_URL}/t/p/w300_and_h450_bestv2/`;
+const isDesktopView = window.innerWidth > 810;
 
 const Card = styled.div`
   height: 200px;
@@ -98,7 +99,7 @@ const PopularItem = ({ data, genres }) => {
     (id) => genres.genres.find((genre) => genre.id === id).name
   );
   let title;
-  if (window.innerWidth > 810) {
+  if (isDesktopView) {
     title =
       data.title.length > 19 ? data.title.substring(0, 18) + '...' : data.title;
     genresList = genresList.slice(0, 3);
