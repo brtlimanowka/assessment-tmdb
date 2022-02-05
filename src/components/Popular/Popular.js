@@ -15,7 +15,9 @@ const Popular = () => {
 
   useEffect(() => {
     setIsLoading(true);
-    fetch(`${API_URL}/movie/popular?api_key=${API_KEY}&page=${currentPage}`)
+    fetch(
+      `${API_URL}/movie/popular?api_key=${API_KEY}&language=pl&page=${currentPage}`
+    )
       .then((response) => {
         if (response.ok) {
           return response.json();
