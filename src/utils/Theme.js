@@ -12,6 +12,7 @@ const theme = {
     pagination: '#7e839a',
     highlight: '#0085e5',
     detailsFont: '#74788b',
+    delete: '#ff0000',
   },
   shadow: '0 0 3px 3px rgba(185, 185, 185, 0.11)',
 };
