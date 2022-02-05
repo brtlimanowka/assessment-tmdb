@@ -23,6 +23,9 @@ const Container = styled.div`
     justify-content: space-between;
     width: 110px;
     margin-right: 16px;
+    a {
+      color: unset;
+    }
     i {
       font-size: 36px;
     }
@@ -57,7 +60,9 @@ const Menu = () => {
       </div>
       <div className='container__lists'>
         <div className='container__your-lists'>
-          <i className='fas fa-bars' title='Twoje listy'></i>
+          <Link to='/list'>
+            <i className='fas fa-bars' title='Twoje listy'></i>
+          </Link>
         </div>
         <div className='container__new-list'>
           <i className='fas fa-plus' title='Utwórz własną listę'></i>
