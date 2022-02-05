@@ -11,7 +11,7 @@
 - Ograniczyłem liczbę gatunków do maksymalnie 3 w celu utrzymania badge'ów w jednej linijce
 - API zwraca maksymalną liczbę stron osiągającą 32 tysiące, ale nie pozwala przejść dalej niż strona 500; w związku z tym lastPage jest hardcode'owany na 500
 - "Twoje listy" są w figmie dość niezrozumiale umieszczone ponad stroną, w związku z czym pozwoliłem sobie zamienić menu na hamburger + dodawanie listy
-- Funkcjonalność CxUD listy nie została wyszczególniona w wymaganiach, więc jej nie implementowałem, zostawiłem sam Read
+- Funkcjonalność CxUD listy nie została wyszczególniona w wymaganiach, więc jej nie implementowałem, zostawiłem sam Read; dodałbym do tego modala, ale niestety czwartek spędziłem na siłowaniu się z Heroku
 - UI nigdzie nie wskazuje funkcjonalności wyszukiwania, wiec jej nie implementowałem
 - Klucz API zazwyczaj przechowywany byłby na backendzie ze względów bezpieczeństwa; frontend zamiast bezpośrednio wywoływać API TMDB odwoływałby się do backendu w celu ukrycia klucza przed użytkownikiem
 - Dodatkowy komponent autentykacyjny pozwoliłby na dynamiczne zaciąganie ID użytkownika, co za tym idzie generowanie tokena i autektykowanie go w celu uzyskania Session ID
