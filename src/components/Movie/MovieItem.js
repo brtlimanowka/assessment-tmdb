@@ -8,7 +8,7 @@ const isDesktopView = window.innerWidth > 810;
 const Card = styled.div`
   height: 200px;
   width: 288px;
-  margin-bottom: 20px;
+  margin: 20px auto;
   box-shadow: ${({ theme }) => theme.shadow};
   display: flex;
   div.card__poster {
@@ -21,15 +21,19 @@ const Card = styled.div`
   div.card__details {
     margin: 16px 0 12px 8px;
     h2 {
-      font-size: 24px;
+      font-size: 240%;
+    }
+    h3 {
+      margin: 4px 0;
+      font-size: 120%;
     }
     a {
       text-decoration: none;
       color: unset;
     }
     div.card__genres {
-      margin: 8px 1px 74px 0;
       display: flex;
+      margin-top: 5px;
       div.card__genre {
         height: 24px;
         padding: 4px 8px;
@@ -42,6 +46,9 @@ const Card = styled.div`
           line-height: 24px;
         }
       }
+    }
+    div.card__description {
+      margin: 5px 0;
     }
     div.card__rating {
       span.card__average {
@@ -122,10 +129,14 @@ const Card = styled.div`
 const MovieItem = ({ data }) => {
   const backgroundURL = `url(${IMAGE_URL}/${data.poster_path})`;
   let genresList = data.genres;
+  let title = data.title;
+  let description = data.overview;
   if (isDesktopView) {
     genresList = genresList.slice(0, 3);
   } else {
     genresList = genresList.slice(0, 1);
+    title = title.substring(0, 8) + '...';
+    description = description.substring(0, 100) + '...';
   }
 
   return (
@@ -134,16 +145,18 @@ const MovieItem = ({ data }) => {
         className='card__poster'
         style={{ backgroundImage: backgroundURL }}></div>
       <div className='card__details'>
-        <h2>{data.title}</h2>
+        <h2>{title}</h2>
         <h3>{new Date(data.release_date).getFullYear()}</h3>
         <p>
-          <label>Produkcja: </label>
+          {isDesktopView && <label>Produkcja: </label>}
           <span>{data.production_countries[0].name}</span>
         </p>
-        <p>
-          <label>Data premiery: </label>
-          <span>{new Date(data.release_date).toLocaleDateString('pl')}</span>
-        </p>
+        {isDesktopView && (
+          <p>
+            <label>Data premiery: </label>
+            <span>{new Date(data.release_date).toLocaleDateString('pl')}</span>
+          </p>
+        )}
         <div className='card__genres'>
           {genresList.map((genre) => (
             <div key={genre.id} className='card__genre'>
@@ -152,8 +165,8 @@ const MovieItem = ({ data }) => {
           ))}
         </div>
         <div className='card__description'>
-          <label>Opis</label>
-          <p>{data.overview}</p>
+          {isDesktopView && <label>Opis</label>}
+          <p>{description}</p>
         </div>
         <div className='card__rating'>
           <span className='card__average'>{data.vote_average}</span>
