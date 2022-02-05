@@ -129,7 +129,7 @@ const Card = styled.div`
 `;
 
 const Credits = styled.div`
-  margin: -20px auto 40px auto;
+  margin: 20px auto;
   width: 288px;
   h2 {
     font-size: 240%;
@@ -148,7 +148,7 @@ const Credits = styled.div`
 `;
 const Person = styled.div`
   box-shadow: ${({ theme }) => theme.shadow};
-  margin-top: 40px;
+  margin-top: 20px;
   margin-right: 16px;
   width: 109px;
   height: 183px;
@@ -162,22 +162,31 @@ const Person = styled.div`
   div.credits__name {
     text-align: center;
     strong {
-      font-size: 240%;
+      font-size: 160%;
       display: block;
     }
     span {
-      font-size: 180%;
+      font-size: 120%;
       color: ${({ theme }) => theme.colors.detailsFont};
     }
   }
   @media (min-width: 810px) {
     width: 248px;
     height: 339px;
+    margin-top: 40px;
     div.credits__image {
       margin: 10px 36px;
       height: 264px;
       width: 177px;
-      border-radius: 5px;
+    }
+    div.credits__name {
+      text-align: center;
+      strong {
+        font-size: 240%;
+      }
+      span {
+        font-size: 180%;
+      }
     }
   }
 `;
@@ -196,8 +205,13 @@ const MovieItem = ({ data }) => {
         } else throw new Error(response.statusText);
       })
       .then((data) => {
-        setCast(data.cast.slice(0, 5));
-        setCrew(data.crew.slice(0, 5));
+        if (isDesktopView) {
+          setCast(data.cast.slice(0, 5));
+          setCrew(data.crew.slice(0, 5));
+        } else {
+          setCast(data.cast.slice(0, 2));
+          setCrew(data.crew.slice(0, 2));
+        }
       })
       .catch((error) => {
         setError(error.message);
