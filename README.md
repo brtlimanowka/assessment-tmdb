@@ -14,5 +14,7 @@
 - Funkcjonalność CxUD listy nie została wyszczególniona w wymaganiach, więc jej nie implementowałem, zostawiłem sam Read
 - UI nigdzie nie wskazuje funkcjonalności wyszukiwania, wiec jej nie implementowałem
 - Klucz API zazwyczaj przechowywany byłby na backendzie ze względów bezpieczeństwa; frontend zamiast bezpośrednio wywoływać API TMDB odwoływałby się do backendu w celu ukrycia klucza przed użytkownikiem
+- Dodatkowy komponent autentykacyjny pozwoliłby na dynamiczne zaciąganie ID użytkownika, co za tym idzie generowanie tokena i autektykowanie go w celu uzyskania Session ID
 - W związku z ilością kodu przeniósłbym style do osobnego folderu, ale nie miałem na to czasu
-- Cast & Crew przyciąłem do 5 pozycji
+- Cast & Crew przyciąłem do 5 pozycji (2 w RWD)
+- RWD przystosowane pod telefony i desktop w pełnej szerokości, nie zdążyłem ulepszyć np. przez zawijanie wierszy
