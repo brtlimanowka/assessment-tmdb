@@ -12,7 +12,6 @@ const Card = styled.div`
   box-shadow: ${({ theme }) => theme.shadow};
   display: flex;
   &:hover {
-    cursor: pointer;
     background-color: ${({ theme }) => theme.colors.secondaryBackground};
   }
   div.card__poster {
@@ -26,6 +25,10 @@ const Card = styled.div`
     margin: 16px 0 12px 8px;
     h2 {
       font-size: 24px;
+    }
+    a {
+      text-decoration: none;
+      color: unset;
     }
     div.card__genres {
       margin: 8px 1px 74px 0;
@@ -111,11 +114,15 @@ const PopularItem = ({ data, genres }) => {
 
   return (
     <Card>
-      <div
-        className='card__poster'
-        style={{ backgroundImage: backgroundURL }}></div>
+      <a href={`/movie/${data.id}`} title='Szczegóły'>
+        <div
+          className='card__poster'
+          style={{ backgroundImage: backgroundURL }}></div>
+      </a>
       <div className='card__details'>
-        <h2>{title}</h2>
+        <a href={`/movie/${data.id}`} title='Szczegóły'>
+          <h2>{title}</h2>
+        </a>
         <div className='card__genres'>
           {genresList.map((genre) => (
             <div key={genre} className='card__genre'>
