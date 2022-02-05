@@ -1,6 +1,8 @@
-import React from 'react';
+import React, { useState, useEffect, Fragment } from 'react';
 import styled from 'styled-components';
-import { WEB_URL } from '../../utils/properties';
+import Spinner from '../ui/Spinner';
+import ErrorMessage from '../ui/ErrorMessage';
+import { API_URL, API_KEY, WEB_URL } from '../../utils/properties';
 
 const IMAGE_URL = `${WEB_URL}/t/p/w300_and_h450_bestv2/`;
 const isDesktopView = window.innerWidth > 810;
@@ -126,7 +128,47 @@ const Card = styled.div`
   }
 `;
 
+const Credits = styled.div`
+  margin: -20px auto 40px auto;
+  width: 288px;
+  h2 {
+    font-size: 240%;
+    font-weight: 700;
+  }
+  @media (min-width: 810px) {
+    margin: -40px auto 80px auto;
+    width: 1668px;
+    h2 {
+      font-size: 480%;
+    }
+  }
+`;
+const Person = styled.div``;
+
 const MovieItem = ({ data }) => {
+  const [isLoading, setIsLoading] = useState(true);
+  const [error, setError] = useState(null);
+  const [cast, setCast] = useState(null);
+  const [crew, setCrew] = useState(null);
+
+  useEffect(() => {
+    fetch(`${API_URL}/movie/${data.id}/credits?api_key=${API_KEY}`)
+      .then((response) => {
+        if (response.ok) {
+          return response.json();
+        } else throw new Error(response.statusText);
+      })
+      .then((data) => {
+        setCast(data.cast);
+        setCrew(data.crew);
+      })
+      .catch((error) => {
+        setError(error.message);
+      })
+      .finally(() => setIsLoading(false));
+    // eslint-disable-next-line
+  }, []);
+
   const backgroundURL = `url(${IMAGE_URL}/${data.poster_path})`;
   let genresList = data.genres;
   let title = data.title;
@@ -140,40 +182,58 @@ const MovieItem = ({ data }) => {
   }
 
   return (
-    <Card>
-      <div
-        className='card__poster'
-        style={{ backgroundImage: backgroundURL }}></div>
-      <div className='card__details'>
-        <h2>{title}</h2>
-        <h3>{new Date(data.release_date).getFullYear()}</h3>
-        <p>
-          {isDesktopView && <label>Produkcja: </label>}
-          <span>{data.production_countries[0].name}</span>
-        </p>
-        {isDesktopView && (
-          <p>
-            <label>Data premiery: </label>
-            <span>{new Date(data.release_date).toLocaleDateString('pl')}</span>
-          </p>
-        )}
-        <div className='card__genres'>
-          {genresList.map((genre) => (
-            <div key={genre.id} className='card__genre'>
-              <span>{genre.name}</span>
+    <Fragment>
+      {isLoading && <Spinner />}
+      {!isLoading && !!error && <ErrorMessage errorMessage={error} />}
+      {!isLoading && !error && !!cast && !!crew && (
+        <Fragment>
+          <Card>
+            <div
+              className='card__poster'
+              style={{ backgroundImage: backgroundURL }}></div>
+            <div className='card__details'>
+              <h2>{title}</h2>
+              <h3>{new Date(data.release_date).getFullYear()}</h3>
+              <p>
+                {isDesktopView && <label>Produkcja: </label>}
+                <span>{data.production_countries[0].name}</span>
+              </p>
+              {isDesktopView && (
+                <p>
+                  <label>Data premiery: </label>
+                  <span>
+                    {new Date(data.release_date).toLocaleDateString('pl')}
+                  </span>
+                </p>
+              )}
+              <div className='card__genres'>
+                {genresList.map((genre) => (
+                  <div key={genre.id} className='card__genre'>
+                    <span>{genre.name}</span>
+                  </div>
+                ))}
+              </div>
+              <div className='card__description'>
+                {isDesktopView && <label>Opis</label>}
+                <p>{description}</p>
+              </div>
+              <div className='card__rating'>
+                <span className='card__average'>{data.vote_average}</span>
+                <span className='card__total-votes'>
+                  ({data.vote_count} głosów)
+                </span>
+              </div>
             </div>
-          ))}
-        </div>
-        <div className='card__description'>
-          {isDesktopView && <label>Opis</label>}
-          <p>{description}</p>
-        </div>
-        <div className='card__rating'>
-          <span className='card__average'>{data.vote_average}</span>
-          <span className='card__total-votes'>({data.vote_count} głosów)</span>
-        </div>
-      </div>
-    </Card>
+          </Card>
+          <Credits>
+            <h2> Wystąpili:</h2>
+          </Credits>
+          <Credits>
+            <h2>Ekipa:</h2>
+          </Credits>
+        </Fragment>
+      )}
+    </Fragment>
   );
 };
 
